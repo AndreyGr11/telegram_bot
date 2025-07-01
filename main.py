@@ -9,7 +9,7 @@ from dotenv import load_dotenv
 from aiogram import Bot, Dispatcher, types
 from aiogram.types import InlineKeyboardButton, InlineKeyboardMarkup
 from aiogram.filters.command import Command
-from aiogram.filters.text import Text
+from aiogram import F
 from aiogram.exceptions import TelegramBadRequest
 
 load_dotenv()
@@ -206,7 +206,7 @@ async def start_handler(msg: types.Message):
     await msg.answer("Жми кнопку ниже, чтобы начать:", reply_markup=main_buttons)
     await bot.send_message(ADMIN_CHAT_ID, f"📥 Пользователь {mention} зашел в бота.")
 
-@dp.callback_query(Text("buy"))
+@dp.callback_query(F.data == "buy")
 async def buy_callback(cb: types.CallbackQuery):
     try:
         await cb.message.edit_text("Выберите тариф:", reply_markup=tariff_buttons)
@@ -215,7 +215,7 @@ async def buy_callback(cb: types.CallbackQuery):
             raise
     await cb.answer()
 
-@dp.callback_query(Text("back_to_main"))
+@dp.callback_query(F.data == "back_to_main")
 async def back_to_main(cb: types.CallbackQuery):
     try:
         await cb.message.edit_text("Привет! Купи доступ в приватный канал 👇", reply_markup=main_buttons)
@@ -224,7 +224,7 @@ async def back_to_main(cb: types.CallbackQuery):
             raise
     await cb.answer()
 
-@dp.callback_query(Text("back_to_tariffs"))
+@dp.callback_query(F.data == "back_to_tariffs")
 async def back_to_tariffs(cb: types.CallbackQuery):
     try:
         await cb.message.edit_text("Выберите тариф:", reply_markup=tariff_buttons)
@@ -233,7 +233,7 @@ async def back_to_tariffs(cb: types.CallbackQuery):
             raise
     await cb.answer()
 
-@dp.callback_query(Text("back_to_payment_methods"))
+@dp.callback_query(F.data == "back_to_payment_methods")
 async def back_to_payment_methods(cb: types.CallbackQuery):
     sub = await get_subscription(cb.from_user.id)
     if not sub or not sub.get("tariff"):
@@ -258,7 +258,7 @@ async def back_to_payment_methods(cb: types.CallbackQuery):
 
     await cb.answer()
 
-@dp.callback_query(Text("paid_check_again"))
+@dp.callback_query(F.data == "paid_check_again")
 async def check_again_callback(cb: types.CallbackQuery):
     sub = await get_subscription(cb.from_user.id)
     if not sub or not sub.get("payment_id"):
@@ -288,7 +288,7 @@ async def check_payment_command(msg: types.Message):
     else:
         await msg.answer("Оплата пока не подтверждена.")
 
-@dp.callback_query(Text("support"))
+@dp.callback_query(F.data == "support")
 async def support(cb: types.CallbackQuery):
     support_back = InlineKeyboardMarkup(
         inline_keyboard=[[InlineKeyboardButton(text="⬅️ Назад", callback_data="back_to_main")]]
@@ -296,7 +296,7 @@ async def support(cb: types.CallbackQuery):
     await cb.message.edit_text("❓ В случае, если у вас возникли вопросы с оплатой, активацией подписки, неактивными ссылками и другие вопросы, пожалуйста, обратитесь в службу поддержки:\n\nhttps://t.me/DorianLaren", reply_markup=support_back)
     await cb.answer()
 
-@dp.callback_query(Text("check_subscription"))
+@dp.callback_query(F.data == "check_subscription")
 async def check_subscription(cb: types.CallbackQuery):
     support_back = InlineKeyboardMarkup(
         inline_keyboard=[[InlineKeyboardButton(text="⬅️ Назад", callback_data="back_to_main")]]
@@ -306,7 +306,7 @@ async def check_subscription(cb: types.CallbackQuery):
     await cb.message.edit_text(text, reply_markup=support_back)
     await cb.answer()
 
-@dp.callback_query(Text(startswith="tariff_"))
+@dp.callback_query(F.data.startswith("tariff_"))
 async def choose_tariff(cb: types.CallbackQuery):
     tariff = cb.data.split("_", 1)[1]
     logging.info(f"[TARIFF] Пользователь {cb.from_user.id} выбрал тариф: {tariff}")
@@ -327,7 +327,7 @@ async def choose_tariff(cb: types.CallbackQuery):
             raise
     await cb.answer()
 
-@dp.callback_query(Text(startswith="pay_"))
+@dp.callback_query(F.data.startswith("pay_"))
 async def choose_payment(cb: types.CallbackQuery):
     method = cb.data.split("_", 1)[1]
     logging.info(f"[PAYMENT] Пользователь {cb.from_user.id} выбрал способ оплаты: {method}")
@@ -406,7 +406,7 @@ async def choose_payment(cb: types.CallbackQuery):
     await cb.message.edit_text(final_text, reply_markup=markup, parse_mode="HTML")
     await cb.answer()
 
-@dp.callback_query(Text("paid_confirm"))
+@dp.callback_query(F.data == "paid_confirm")
 async def confirm_payment(cb: types.CallbackQuery):
     sub = await get_subscription(cb.from_user.id)
     if not sub or not sub.get("payment_id"):
