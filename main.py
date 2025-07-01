@@ -9,7 +9,7 @@ from dotenv import load_dotenv
 from aiogram import Bot, Dispatcher, types
 from aiogram.types import InlineKeyboardButton, InlineKeyboardMarkup
 from aiogram.filters.command import Command
-from aiogram.filters import Text
+from aiogram.filters.text import Text
 from aiogram.exceptions import TelegramBadRequest
 
 load_dotenv()
