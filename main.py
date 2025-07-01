@@ -288,6 +288,29 @@ async def check_payment_command(msg: types.Message):
     else:
         await msg.answer("Оплата пока не подтверждена.")
 
+@dp.message(Command("status"))
+async def status_handler(msg: types.Message):
+    sub = await get_subscription(msg.from_user.id)
+
+    if not sub:
+        await msg.answer("❌ Вы не оплачивали ничего.")
+        return
+
+    tariff_display = {
+        "week": "Неделя",
+        "month": "Месяц",
+        "year": "Год"
+    }
+
+    if sub["paid"]:
+        readable_tariff = tariff_display.get(sub["tariff"], sub["tariff"])
+        await msg.answer(f"✅ Вы оплатили тариф: <b>{readable_tariff}</b>", parse_mode="HTML")
+    elif sub["payment_id"]:
+        readable_tariff = tariff_display.get(sub["tariff"], sub["tariff"])
+        await msg.answer(f"⏳ Оплата в процессе для тарифа <b>{readable_tariff}</b>.", parse_mode="HTML")
+    else:
+        await msg.answer("❌ Вы не оплачивали ничего.")
+
 @dp.callback_query(F.data == "support")
 async def support(cb: types.CallbackQuery):
     support_back = InlineKeyboardMarkup(
