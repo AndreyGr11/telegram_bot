@@ -43,9 +43,9 @@ main_buttons = InlineKeyboardMarkup(inline_keyboard=[
 ])
 
 tariff_buttons = InlineKeyboardMarkup(inline_keyboard=[
-    [InlineKeyboardButton(text="Неделя - 299 рублей", callback_data="tariff_week")],
-    [InlineKeyboardButton(text="Месяц - 599 рублей", callback_data="tariff_month")],
-    [InlineKeyboardButton(text="Год - 999 рублей", callback_data="tariff_year")],
+    [InlineKeyboardButton(text="Неделя - 499 рублей", callback_data="tariff_week")],
+    [InlineKeyboardButton(text="Месяц - 699 рублей", callback_data="tariff_month")],
+    [InlineKeyboardButton(text="Год - 1299 рублей", callback_data="tariff_year")],
     [InlineKeyboardButton(text="⬅️ Назад", callback_data="back_to_main")]
 ])
 
@@ -241,7 +241,7 @@ async def back_to_payment_methods(cb: types.CallbackQuery):
         return
 
     display_tariff_map = {"week": "Неделя", "month": "Месяц", "year": "Год"}
-    price_map = {"week": "299₽", "month": "599₽", "year": "999₽"}
+    price_map = {"week": "499₽", "month": "699₽", "year": "1299₽"}
     display_tariff = display_tariff_map.get(sub['tariff'], "Неизвестно")
     price = price_map.get(sub['tariff'], "Неизвестно")
 
@@ -311,7 +311,7 @@ async def choose_tariff(cb: types.CallbackQuery):
     tariff = cb.data.split("_", 1)[1]
     logging.info(f"[TARIFF] Пользователь {cb.from_user.id} выбрал тариф: {tariff}")
     display_tariff_map = {"week": "Неделя", "month": "Месяц", "year": "Год"}
-    price_map = {"week": "299₽", "month": "599₽", "year": "999₽"}
+    price_map = {"week": "499₽", "month": "699₽", "year": "1299"}
     display_tariff = display_tariff_map.get(tariff, "Неизвестно")
     price = price_map.get(tariff, "Неизвестно")
 
@@ -338,17 +338,17 @@ async def choose_payment(cb: types.CallbackQuery):
         return
 
     display_tariff_map = {"week": "Неделя", "month": "Месяц", "year": "Год"}
-    price_map = {"week": "299₽", "month": "599₽", "year": "999₽"}
-    usd_price_map = {"week": "3.5$", "month": "6.9$", "year": "11.5$"}
+    price_map = {"week": "499₽", "month": "699₽", "year": "1299₽"}
+    usd_price_map = {"week": "6$", "month": "8.5$", "year": "15$"}
 
     display_tariff = display_tariff_map.get(sub['tariff'], "Неизвестно")
     price = price_map.get(sub['tariff'], "Неизвестно")
-    usd_price = usd_price_map.get(sub['tariff'], "3.5$")
+    usd_price = usd_price_map.get(sub['tariff'], "6$")
 
     details = payment_details.get(method)
 
     if method == "Cryptobot":
-        usd_amount_value = {"week": 3.5, "month": 6.9, "year": 11.5}.get(sub['tariff'], 3.5)
+        usd_amount_value = {"week": 6, "month": 8.5, "year": 15}.get(sub['tariff'], 6)
         pid, url = await create_cryptobot_payment(usd_amount_value, user_id, cb.from_user.username)
         if pid and url:
             logging.info(f"[CRYPTOBOT] Создан инвойс {pid} для пользователя {user_id}")
