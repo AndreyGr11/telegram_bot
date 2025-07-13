@@ -82,10 +82,10 @@ payment_details = {
 
     "Криптовалюта": (
         "1. Произведите оплату на один из следующих кошельков:\n\n"
-        "<b>USDT TRC-20</b>:\n<code>TEpRDGGnaYbJGTz4gMcj99yqt65ajcAY4B</code>\n\n"
-        "<b>USDT BEP-20 (BNB Smart Chain)</b>:\n<code>0xec7FBc2aB43946AA9ce2e03fa4A2352b339705c8</code>\n\n"
+        "<b>USDT TRC-20</b>:\n<code>TGwEy2u4qMDPWs9pGjbmmHfL41AXDaffLs</code>\n\n"
+        "<b>USDT BEP-20 (BNB Smart Chain)</b>:\n<code>0x036a1Bd6213ccc1f0893CeD6306e8430F5618d44</code>\n\n"
         "<b>USDT (TON)</b>:\n<code>UQA-j-ixpSuyrY_cdmymJDg_rnir5mc_1zeu4qjAzJPZBQL0</code>\n\n"
-        "<b>USDT ERC-20 (Ethereum)</b>:\n<code>0xec7FBc2aB43946AA9ce2e03fa4A2352b339705c8</code>\n\n"
+        "<b>USDT ERC-20 (Ethereum)</b>:\n<code>0x036a1Bd6213ccc1f0893CeD6306e8430F5618d44</code>\n\n"
         "2. После оплаты отправьте боту <b>хеш транзакции</b>.\n\n"
         "➖➖➖➖➖➖➖➖➖➖\n"
         "<b>⚠️ Внимание:</b> Убедитесь, что вы скопировали адрес полностью и правильно.\n"
