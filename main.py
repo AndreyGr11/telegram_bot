@@ -53,7 +53,7 @@ payment_buttons = InlineKeyboardMarkup(inline_keyboard=[
     [InlineKeyboardButton(text="По номеру банк.карты - не работает", callback_data="pay_По номеру банковской карты")],
     [InlineKeyboardButton(text="Криптовалюта", callback_data="pay_Криптовалюта")],
     [InlineKeyboardButton(text="ЮMoney (Я.Деньги) - не работает", callback_data="pay_ЮMoney (Я.Деньги)")],
-    [InlineKeyboardButton(text="Через Tribute (RUB, USD, EUR и др)", callback_data="pay_Через Tribute")],
+    [InlineKeyboardButton(text="Через Tribute (RUB, USD, EUR, и др.)", callback_data="pay_Через Tribute")],
     [InlineKeyboardButton(text="Через Cryptobot", callback_data="pay_Cryptobot")],
     [InlineKeyboardButton(text="⬅️ Назад", callback_data="back_to_tariffs")]
 ])
@@ -100,7 +100,7 @@ payment_details = {
     ),
 
     "Через Tribute": (
-        "<b>⚠️ Важно:</b> данный метод оплаты может временно не работать из-за неполадок на серверах Telegram.\n\n"
+        "<b>⚠️ Важно:</b> Можно оплатить картой любой страны.\n\n"
         "<b>📸 После оплаты</b> отправьте фото или скриншот квитанции:\n"
         "— из банковского приложения, или\n"
         "— из приложения <a href='https://t.me/tribute'>Tribute</a>\n\n"
