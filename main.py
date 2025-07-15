@@ -53,7 +53,7 @@ payment_buttons = InlineKeyboardMarkup(inline_keyboard=[
     [InlineKeyboardButton(text="По номеру банк.карты - не работает", callback_data="pay_По номеру банковской карты")],
     [InlineKeyboardButton(text="Криптовалюта", callback_data="pay_Криптовалюта")],
     [InlineKeyboardButton(text="ЮMoney (Я.Деньги) - не работает", callback_data="pay_ЮMoney (Я.Деньги)")],
-    [InlineKeyboardButton(text="Через Tribute (RUB, USD, EUR)", callback_data="pay_Через Tribute")],
+    [InlineKeyboardButton(text="Через Tribute (RUB, USD, EUR и др)", callback_data="pay_Через Tribute")],
     [InlineKeyboardButton(text="Через Cryptobot", callback_data="pay_Cryptobot")],
     [InlineKeyboardButton(text="⬅️ Назад", callback_data="back_to_tariffs")]
 ])
